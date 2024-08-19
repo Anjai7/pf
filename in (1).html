@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjai's Portfolio with Matrix Rain</title>
+    <style>
+        /* General reset and body styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: black;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        /* Terminal styles */
+        .terminal {
+            width: 90%;
+            max-width: 900px;
+            background-color: #000;
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            z-index: 2; /* Ensure terminal is above canvas */
+        }
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 3px solid #00ff00;
+            position: relative;
+        }
+        .buttons {
+            display: flex;
+        }
+        .button {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .red {
+            background-color: #ff605c;
+        }
+        .yellow {
+            background-color: #ffbd44;
+        }
+        .green {
+            background-color: #00ca4e;
+        }
+        .title {
+            color: #00ff00;
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .tabs-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .tabs {
+            display: flex;
+        }
+        .tab {
+            background-color: transparent;
+            color: #00ff00;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .tab.active {
+            border-bottom: 2px solid #00ff00;
+        }
+        .tab:hover {
+            text-decoration: underline;
+        }
+        .terminal-body {
+            padding: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .command {
+            margin: 0;
+            padding: 5px 0;
+        }
+        .terminal-content {
+            display: none;
+        }
+        .terminal-content.active {
+            display: block;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Canvas styles */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Ensure canvas is behind terminal */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="buttons">
+                <span class="button red"></span>
+                <span class="button yellow"></span>
+                <span class="button green"></span>
+            </div>
+            <div class="title">Anjai's Portfolio</div>
+        </div>
+        <div class="tabs-container">
+            <div class="tabs">
+                <div class="tab active" data-tab="home">Home</div>
+                <div class="tab" data-tab="skills">Skills</div>
+                <div class="tab" data-tab="about">About</div>
+            </div>
+        </div>
+        <div class="terminal-body">
+            <div id="home" class="terminal-content active">
+                <p class="command">Welcome to Anjai's Portfolio</p>
+                <p class="command">Name: Anjai</p>
+                <p class="command">Location: Tamil Nadu, Kanyakumari, Vellamodi</p>
+                <p class="command">Field: Computer Science Engineering</p>
+                <p class="command">Interests: Cybersecurity, Networking, Automation</p>
+                <p class="command">Skills: Basic knowledge in Cybersecurity, Networking, Automation and Python</p>
+                <p class="command">Contact: <a href="mailto:anjai0600@gmail.com">anjai0600@gmail.com</a></p>
+                <p class="command">GitHub: <a href="https://github.com/Anjai7" target="_blank">GitHub Profile</a></p>
+                <p class="command">Instagram: <a href="https://www.instagram.com/anjai_007/" target="_blank">Instagram Profile</a></p>
+                <p class="command">LinkedIn: <a href="https://www.linkedin.com/in/anjai-s-7634bb2a8/" target="_blank">LinkedIn Profile</a></p>
+                <p class="command">TryHackMe: <a href="https://tryhackme.com/p/AnjaiS" target="_blank">TryHackMe Profile</a></p>
+            </div>
+            <div id="skills" class="terminal-content">
+                <p class="command">Skills in progress:</p>
+                <div class="skill">
+                    <p class="command">Python:50%</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 50%;"></div>
+                    </div>
+                    <p class="command">|========================>.......................|</p>
+                </div>
+                <div class="skill">
+                    <p class="command">Networking:20%</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 20%;"></div>
+                    </div>
+                    <p class="command">|============>...................................|</p>
+                </div>
+                <div class="skill">
+                    <p class="command">Cybersecurity:20%</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 20%;"></div>
+                    </div>
+                    <p class="command">|============>...................................|</p>
+                </div>
+                <div class="skill">
+                    <p class="command">Web Exploitation:15%</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 15%;"></div>
+                    </div>
+                    <p class="command">|===========>....................................|</p>
+                </div>
+                <div class="skill">
+                    <p class="command">TryHackMe: Did some CTFs</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 100%;"></div>
+                    </div>
+                    <p class="command">|================================================|</p>
+                </div>
+            </div>
+            
+            
+            
+            
+                
+            </div>
+        </div>
+    </div>
+    <div id="About" class="terminal-content">
+    <script>
+        var c = document.getElementById("c");
+        var ctx = c.getContext("2d");
+
+        // Function to set canvas size
+        function setCanvasSize() {
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+            
+            // Recalculate columns based on new width
+            columns = c.width / font_size;
+            drops = [];
+            for (var x = 0; x < columns; x++)
+                drops[x] = 1;
+        }
+
+        // Initial setup
+        setCanvasSize();
+
+        // Listen for window resize events
+        window.addEventListener('resize', function() {
+            setCanvasSize();
+        });
+
+        // Characters for matrix effect
+        var matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        matrix = matrix.split("");
+
+        var font_size = 10;
+        var columns = c.width / font_size;
+        var drops = [];
+
+        for (var x = 0; x < columns; x++)
+            drops[x] = 1;
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+            ctx.fillRect(0, 0, c.width, c.height);
+
+            ctx.fillStyle = "#00FF00";
+            ctx.font = font_size + "px arial";
+
+            for (var i = 0; i < drops.length; i++) {
+                var text = matrix[Math.floor(Math.random() * matrix.length)];
+                ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+                if (drops[i] * font_size > c.height && Math.random() > 0.975)
+                    drops[i] = 0;
+
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.terminal-content').forEach(content => content.classList.remove('active'));
+
+                this.classList.add('active');
+                document.getElementById(this.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
+
