@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjai S - Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+
+        :root {
+            --background-color: #0d0d0d;
+            --text-color: #00ff41;
+            --glow-color: rgba(0, 255, 65, 0.75);
+            --link-color: #00ff41;
+            --link-hover-color: #ffffff;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #intro-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--background-color);
+            z-index: 100;
+        }
+
+        #intro-animation {
+            font-size: 5rem;
+            font-weight: 700;
+            text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+        }
+
+        #portfolio-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: none; /* Will be shown by JS */
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            text-shadow: 0 0 5px var(--glow-color);
+            margin-bottom: 0;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+
+        section {
+            margin-bottom: 40px;
+            border: 1px solid var(--text-color);
+            padding: 20px;
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--text-color);
+            text-shadow: 0 0 3px var(--glow-color);
+            border-bottom: 2px solid var(--text-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        a:hover {
+            color: var(--link-hover-color);
+            text-shadow: 0 0 5px var(--link-hover-color);
+        }
+
+        ul {
+            list-style-type: '>> ';
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .project-card, .experience-card {
+            margin-bottom: 20px;
+            border-left: 3px solid var(--text-color);
+            padding-left: 15px;
+        }
+
+        .project-card h3, .experience-card h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-category {
+            margin-bottom: 20px;
+        }
+
+        .skill-category h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .skill-tag {
+            background-color: rgba(0, 255, 65, 0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .blinking-cursor {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="intro-container">
+        <div id="intro-animation"></div>
+    </div>
+
+    <main id="portfolio-content" style="display: none;">
+        <header>
+            <h1>Anjai S</h1>
+            <p>Cybersecurity Enthusiast | Penetration Tester | Computer Vision Developer</p>
+        </header>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                I’m a Computer Science student (3rd year, 2023–2027) at Stella Mary’s College of Engineering, passionate about cybersecurity, penetration testing, and computer vision.
+            </p>
+            <p>
+                I enjoy solving CTF challenges, writing security write-ups, and exploring how different systems can be exploited or secured. Alongside cybersecurity, I’ve also worked on AI-based projects that combine deep learning and embedded systems.
+            </p>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-entry">
+                <h4>B.E. Computer Science and Engineering</h4>
+                <p>Stella Mary’s College of Engineering</p>
+                <p><em>2023 – 2027 (Ongoing)</em></p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skill-category">
+                <h4>Programming</h4>
+                <div class="skills-list">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C</span>
+                    <span class="skill-tag">Bash Scripting</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4>Cybersecurity</h4>
+                <div class="skills-list">
+                    <span class="skill-tag">Linux Administration</span>
+                    <span class="skill-tag">Privilege Escalation</span>
+                    <span class="skill-tag">Networking (TCP/IP)</span>
+                    <span class="skill-tag">Wireshark</span>
+                    <span class="skill-tag">Penetration Testing</span>
+                    <span class="skill-tag">Burp Suite</span>
+                    <span class="skill-tag">Metasploit</span>
+                    <span class="skill-tag">Nmap</span>
+                    <span class="skill-tag">Gobuster</span>
+                    <span class="skill-tag">CTF Solving</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4>AI & Computer Vision</h4>
+                <div class="skills-list">
+                    <span class="skill-tag">OpenCV</span>
+                    <span class="skill-tag">YOLO</span>
+                    <span class="skill-tag">Raspberry Pi</span>
+                    <span class="skill-tag">Edge AI</span>
+                    <span class="skill-tag">Text-to-Speech (TTS)</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4>Other Tools & Platforms</h4>
+                <div class="skills-list">
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">GitHub</span>
+                    <span class="skill-tag">n8n Workflow Automation</span>
+                    <span class="skill-tag">Cloud Concepts</span>
+                    <span class="skill-tag">IT Support</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="project-card">
+                <h3>Blind Assistant System (Internship Project)</h3>
+                <p><strong>Tech Stack:</strong> Python, OpenCV, YOLO, Raspberry Pi 5, Hailo-8 TTY, TTS libraries</p>
+                <p>Built an AI-powered assistive system that helps visually impaired users identify their surroundings in real-time using YOLO object detection. Integrated with Raspberry Pi for edge computing and TTS for audible feedback.</p>
+            </div>
+            <div class="project-card">
+                <h3>TryHackMe CTF Write-ups</h3>
+                <p><strong>Tech Stack:</strong> Linux, Bash, Cybersecurity Tools (Nmap, Gobuster, Hydra, etc.)</p>
+                <p>Completed and documented write-ups for CTF rooms such as RootMe, SimpleCTF, and Bricks Heist to demonstrate vulnerability analysis, privilege escalation, and exploitation workflows.</p>
+            </div>
+            <div class="project-card">
+                <h3>Anonymous P2P Chat (GitHub Project)</h3>
+                <p><strong>Tech Stack:</strong> CSS, Networking basics</p>
+                <p>Peer-to-peer chat project for experimenting with secure communication. (Description WIP)</p>
+            </div>
+            <div class="project-card">
+                <h3>Computer Vision Notebook (GitHub Project)</h3>
+                <p><strong>Tech Stack:</strong> Jupyter Notebook, OpenCV</p>
+                <p>Explorations in computer vision and deep learning-based vision models. (Description WIP)</p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="experience-card">
+                <h3>AI Engineer Intern – Computer Vision</h3>
+                <ul>
+                    <li>Built the Blind Assistant System using YOLO + Raspberry Pi 5 + Hailo-8 TTY.</li>
+                    <li>Implemented text-to-speech integration for audible feedback.</li>
+                    <li>Gained hands-on experience with embedded AI and real-time computer vision.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="certifications">
+            <h2>Certifications</h2>
+            <ul>
+                <li>TryHackMe Pathways: Pre-Security, Cybersecurity 101, Web Fundamentals</li>
+                <li>Coursera: Google IT Support Certification</li>
+            </ul>
+        </section>
+
+        <section id="leadership">
+            <h2>Leadership & Community</h2>
+            <ul>
+                <li><strong>Captain (Bash Team), Byte Bash Blitz</strong> – A student-led tech community with 50+ active members.</li>
+                <li>Mentored peers in cybersecurity and programming.</li>
+                <li>Organized events and activities to promote technical learning.</li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>You can reach me through the following channels:</p>
+            <ul>
+                <li>Email: <a href="mailto:anjai0600@gmail.com">anjai0600@gmail.com</a></li>
+                <li>GitHub: <a href="https://github.com/Anjai7" target="_blank" rel="noopener noreferrer">Anjai7</a></li>
+                <li>LinkedIn: <a href="https://linkedin.com/in/anjai-s" target="_blank" rel="noopener noreferrer">Anjai S</a></li>
+                <li>TryHackMe: <a href="https://tryhackme.com/p/AnjaiS" target="_blank" rel="noopener noreferrer">AnjaiS</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const introAnimationEl = document.getElementById('intro-animation');
+            const introContainerEl = document.getElementById('intro-container');
+            const portfolioContentEl = document.getElementById('portfolio-content');
+
+            const name = "ANJAI";
+            // Using Unicode symbols and characters to represent logos
+            const logos = ["Λ", "[N]", "JtR", "Λ", "I"];
+            const glitchChars = 'ABCDEFGHIJKLMOPQRSTUVWXYZ1234567890!@#$%^&*()_-+={}[]|:;"<>,.?/~`';
+
+            let currentText = [...logos];
+            introAnimationEl.textContent = currentText.join(' ');
+
+            const revealLetter = (index) => {
+                if (index >= name.length) {
+                    addCursorAndFadeOut();
+                    return;
+                }
+
+                const targetLetter = name[index];
+                let glitchCount = 0;
+                const maxGlitches = 10; // Number of "glitches"
+                const glitchDuration = 50; // ms per glitch
+
+                const glitchInterval = setInterval(() => {
+                    if (glitchCount >= maxGlitches) {
+                        clearInterval(glitchInterval);
+                        currentText[index] = targetLetter;
+                        introAnimationEl.textContent = currentText.join(' ');
+                        setTimeout(() => revealLetter(index + 1), 200);
+                    } else {
+                        const randomChar = glitchChars[Math.floor(Math.random() * glitchChars.length)];
+                        currentText[index] = randomChar;
+                        introAnimationEl.textContent = currentText.join(' ');
+                        glitchCount++;
+                    }
+                }, glitchDuration);
+            };
+
+            const addCursorAndFadeOut = () => {
+                // Remove space and add cursor
+                introAnimationEl.textContent = name;
+                introAnimationEl.innerHTML += '<span class="blinking-cursor">|</span>';
+
+                setTimeout(() => {
+                    introContainerEl.style.transition = 'opacity 1s ease-out';
+                    introContainerEl.style.opacity = '0';
+
+                    introContainerEl.addEventListener('transitionend', () => {
+                        introContainerEl.style.display = 'none';
+                        portfolioContentEl.style.display = 'block';
+
+                        // Force a reflow before adding the class to trigger the animation
+                        void portfolioContentEl.offsetWidth;
+
+                        portfolioContentEl.style.transition = 'opacity 1s ease-in';
+                        portfolioContentEl.style.opacity = '1';
+
+                    }, { once: true });
+
+                }, 1500); // Wait 1.5 seconds with cursor before fading
+            };
+
+            // Start the animation after an initial pause
+            setTimeout(() => {
+                revealLetter(0);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
