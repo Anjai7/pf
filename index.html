@@ -3,370 +3,659 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anjai S - Portfolio</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
-
-        :root {
-            --background-color: #0d0d0d;
-            --text-color: #00ff41;
-            --glow-color: rgba(0, 255, 65, 0.75);
-            --link-color: #00ff41;
-            --link-hover-color: #ffffff;
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            font-family: 'Fira Code', monospace;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        #intro-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: var(--background-color);
-            z-index: 100;
-        }
-
-        #intro-animation {
-            font-size: 5rem;
-            font-weight: 700;
-            text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
-        }
-
-        #portfolio-content {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            display: none; /* Will be shown by JS */
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            text-shadow: 0 0 5px var(--glow-color);
-            margin-bottom: 0;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: #aaa;
-        }
-
-        section {
-            margin-bottom: 40px;
-            border: 1px solid var(--text-color);
-            padding: 20px;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        h2 {
-            font-size: 2rem;
-            color: var(--text-color);
-            text-shadow: 0 0 3px var(--glow-color);
-            border-bottom: 2px solid var(--text-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        a {
-            color: var(--link-color);
-            text-decoration: none;
-            transition: color 0.3s, text-shadow 0.3s;
-        }
-
-        a:hover {
-            color: var(--link-hover-color);
-            text-shadow: 0 0 5px var(--link-hover-color);
-        }
-
-        ul {
-            list-style-type: '>> ';
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        .project-card, .experience-card {
-            margin-bottom: 20px;
-            border-left: 3px solid var(--text-color);
-            padding-left: 15px;
-        }
-
-        .project-card h3, .experience-card h3 {
-            margin-top: 0;
-            font-size: 1.5rem;
-        }
-
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-category {
-            margin-bottom: 20px;
-        }
-
-        .skill-category h4 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .skill-tag {
-            background-color: rgba(0, 255, 65, 0.1);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-
-        .blinking-cursor {
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            from, to {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-        }
-    </style>
+    <title>Anjai S | Cybersecurity Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="intro-container">
-        <div id="intro-animation"></div>
+    <!-- Particle System Background -->
+    <div id="particles-background"></div>
+    
+    <!-- Intro Animation Overlay -->
+    <div id="intro-overlay" class="intro-overlay">
+        <div class="intro-container">
+            <div class="letter-container">
+                <div class="letter-item" data-letter="A" data-icon="⚡">
+                    <div class="icon">⚡</div>
+                    <div class="letter">A</div>
+                </div>
+                <div class="letter-item" data-letter="N" data-icon="🌐">
+                    <div class="icon">🌐</div>
+                    <div class="letter">N</div>
+                </div>
+                <div class="letter-item" data-letter="J" data-icon="🔑">
+                    <div class="icon">🔑</div>
+                    <div class="letter">J</div>
+                </div>
+                <div class="letter-item" data-letter="A" data-icon="△">
+                    <div class="icon">△</div>
+                    <div class="letter">A</div>
+                </div>
+                <div class="letter-item" data-letter="I" data-icon="🔒">
+                    <div class="icon">🔒</div>
+                    <div class="letter">I</div>
+                </div>
+            </div>
+            <div class="cursor" id="cursor">|</div>
+        </div>
+        <div class="loading-text">Initializing security protocols...</div>
+        <div class="scan-line"></div>
     </div>
 
-    <main id="portfolio-content" style="display: none;">
-        <header>
-            <h1>Anjai S</h1>
-            <p>Cybersecurity Enthusiast | Penetration Tester | Computer Vision Developer</p>
-        </header>
-
-        <section id="about">
-            <h2>About Me</h2>
-            <p>
-                I’m a Computer Science student (3rd year, 2023–2027) at Stella Mary’s College of Engineering, passionate about cybersecurity, penetration testing, and computer vision.
-            </p>
-            <p>
-                I enjoy solving CTF challenges, writing security write-ups, and exploring how different systems can be exploited or secured. Alongside cybersecurity, I’ve also worked on AI-based projects that combine deep learning and embedded systems.
-            </p>
-        </section>
-
-        <section id="education">
-            <h2>Education</h2>
-            <div class="education-entry">
-                <h4>B.E. Computer Science and Engineering</h4>
-                <p>Stella Mary’s College of Engineering</p>
-                <p><em>2023 – 2027 (Ongoing)</em></p>
-            </div>
-        </section>
-
-        <section id="skills">
-            <h2>Skills</h2>
-            <div class="skill-category">
-                <h4>Programming</h4>
-                <div class="skills-list">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">C</span>
-                    <span class="skill-tag">Bash Scripting</span>
+    <!-- Main Portfolio Content -->
+    <div id="main-content" class="main-content">
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <span class="nav-prompt">anjai@portfolio:~$</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">./about</a>
+                    <a href="#skills" class="nav-link">./skills</a>
+                    <a href="#projects" class="nav-link">./projects</a>
+                    <a href="#achievements" class="nav-link">./achievements</a>
+                    <a href="#certifications" class="nav-link">./certifications</a>
+                    <a href="#contact" class="nav-link">./contact</a>
                 </div>
             </div>
-            <div class="skill-category">
-                <h4>Cybersecurity</h4>
-                <div class="skills-list">
-                    <span class="skill-tag">Linux Administration</span>
-                    <span class="skill-tag">Privilege Escalation</span>
-                    <span class="skill-tag">Networking (TCP/IP)</span>
-                    <span class="skill-tag">Wireshark</span>
-                    <span class="skill-tag">Penetration Testing</span>
-                    <span class="skill-tag">Burp Suite</span>
-                    <span class="skill-tag">Metasploit</span>
-                    <span class="skill-tag">Nmap</span>
-                    <span class="skill-tag">Gobuster</span>
-                    <span class="skill-tag">CTF Solving</span>
-                </div>
-            </div>
-            <div class="skill-category">
-                <h4>AI & Computer Vision</h4>
-                <div class="skills-list">
-                    <span class="skill-tag">OpenCV</span>
-                    <span class="skill-tag">YOLO</span>
-                    <span class="skill-tag">Raspberry Pi</span>
-                    <span class="skill-tag">Edge AI</span>
-                    <span class="skill-tag">Text-to-Speech (TTS)</span>
-                </div>
-            </div>
-            <div class="skill-category">
-                <h4>Other Tools & Platforms</h4>
-                <div class="skills-list">
-                    <span class="skill-tag">Git</span>
-                    <span class="skill-tag">GitHub</span>
-                    <span class="skill-tag">n8n Workflow Automation</span>
-                    <span class="skill-tag">Cloud Concepts</span>
-                    <span class="skill-tag">IT Support</span>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">anjai@cybersec-portfolio</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">root@anjai:~#</span> whoami
+                            </div>
+                            <div class="terminal-output">
+                                <h1 class="hero-name typewriter">Anjai S</h1>
+                                <p class="hero-title typewriter">Computer Science Engineering Student & Cybersecurity Enthusiast</p>
+                                <p class="hero-subtitle typewriter">3rd Year CS Student | Learning Cybersecurity | AI Enthusiast</p>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="prompt">root@anjai:~#</span> ls -la social_links/
+                            </div>
+                            <div class="hero-links">
+                                <a href="https://github.com/Anjai7" target="_blank" class="hero-link glitch-hover">
+                                    <span class="link-icon">📁</span> GitHub
+                                </a>
+                                <a href="https://linkedin.com/in/anjai-s" target="_blank" class="hero-link glitch-hover">
+                                    <span class="link-icon">🔗</span> LinkedIn
+                                </a>
+                                <a href="https://tryhackme.com/p/AnjaiS" target="_blank" class="hero-link glitch-hover">
+                                    <span class="link-icon">🎯</span> TryHackMe
+                                </a>
+                                <a href="mailto:anjai0600@gmail.com" class="hero-link glitch-hover">
+                                    <span class="link-icon">📧</span> Email
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="projects">
-            <h2>Featured Projects</h2>
-            <div class="project-card">
-                <h3>Blind Assistant System (Internship Project)</h3>
-                <p><strong>Tech Stack:</strong> Python, OpenCV, YOLO, Raspberry Pi 5, Hailo-8 TTY, TTS libraries</p>
-                <p>Built an AI-powered assistive system that helps visually impaired users identify their surroundings in real-time using YOLO object detection. Integrated with Raspberry Pi for edge computing and TTS for audible feedback.</p>
-            </div>
-            <div class="project-card">
-                <h3>TryHackMe CTF Write-ups</h3>
-                <p><strong>Tech Stack:</strong> Linux, Bash, Cybersecurity Tools (Nmap, Gobuster, Hydra, etc.)</p>
-                <p>Completed and documented write-ups for CTF rooms such as RootMe, SimpleCTF, and Bricks Heist to demonstrate vulnerability analysis, privilege escalation, and exploitation workflows.</p>
-            </div>
-            <div class="project-card">
-                <h3>Anonymous P2P Chat (GitHub Project)</h3>
-                <p><strong>Tech Stack:</strong> CSS, Networking basics</p>
-                <p>Peer-to-peer chat project for experimenting with secure communication. (Description WIP)</p>
-            </div>
-            <div class="project-card">
-                <h3>Computer Vision Notebook (GitHub Project)</h3>
-                <p><strong>Tech Stack:</strong> Jupyter Notebook, OpenCV</p>
-                <p>Explorations in computer vision and deep learning-based vision models. (Description WIP)</p>
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="prompt">anjai@portfolio:~$</span> cat about.md
+                    </h2>
+                </div>
+                <div class="about-terminal">
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">about_anjai.md</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="comment"># About Anjai S</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="prompt">whoami:</span> Computer Science Student & Cybersecurity Enthusiast
+                            </div>
+                            <div class="terminal-output">
+                                <p>I'm a Computer Science student (3rd year, 2023–2027) at Stella Mary's College of Engineering, passionate about learning cybersecurity and exploring how different systems work.</p>
+                                <p>I enjoy solving CTF challenges as a way to learn, writing up my solutions, and experimenting with both security concepts and AI-based projects. My approach is hands-on learning through experimentation and practice.</p>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="comment"># Education</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="prompt">education:</span>
+                            </div>
+                            <div class="education-info">
+                                <div class="terminal-line">🎓 B.E. Computer Science and Engineering</div>
+                                <div class="terminal-line">🏫 Stella Mary's College of Engineering</div>
+                                <div class="terminal-line">📅 2023 – 2027 (Ongoing)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="experience">
-            <h2>Experience</h2>
-            <div class="experience-card">
-                <h3>AI Engineer Intern – Computer Vision</h3>
-                <ul>
-                    <li>Built the Blind Assistant System using YOLO + Raspberry Pi 5 + Hailo-8 TTY.</li>
-                    <li>Implemented text-to-speech integration for audible feedback.</li>
-                    <li>Gained hands-on experience with embedded AI and real-time computer vision.</li>
-                </ul>
+        <!-- Updated Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="prompt">anjai@portfolio:~$</span> execute_skills.sh
+                    </h2>
+                </div>
+                <div class="skills-grid">
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">💻 Programming Languages</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@skills:~$</span> cat programming_skills.txt
+                            </div>
+                            <div class="terminal-output">
+                                <div class="skill-item">
+                                    <div class="terminal-line">
+                                        <span class="comment"># Python [70%]</span>
+                                    </div>
+                                    <div class="terminal-line">
+                                        <span class="terminal-output">Basic scripting and automation</span>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="terminal-line">
+                                        <span class="comment"># C Programming [65%]</span>
+                                    </div>
+                                    <div class="terminal-line">
+                                        <span class="terminal-output">Fundamental programming concepts</span>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="terminal-line">
+                                        <span class="comment"># Bash Scripting [75%]</span>
+                                    </div>
+                                    <div class="terminal-line">
+                                        <span class="terminal-output">Basic automation tasks</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">🔐 Cybersecurity Learning Journey</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@skills:~$</span> ls -la cybersecurity_skills/
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line">• Basic Linux system administration</div>
+                                <div class="terminal-line">• Introductory web application security concepts</div>
+                                <div class="terminal-line">• Network reconnaissance basics (Nmap, basic scanning)</div>
+                                <div class="terminal-line">• Fundamental vulnerability assessment concepts</div>
+                                <div class="terminal-line">• Basic OSINT techniques</div>
+                                <div class="terminal-line">• Introduction to SQL injection concepts</div>
+                                <div class="terminal-line">• Cryptography fundamentals</div>
+                                <div class="terminal-line">• Basic malware analysis concepts</div>
+                                <div class="terminal-line">• Windows security basics</div>
+                                <div class="terminal-line">• Packet analysis introduction (Wireshark basics)</div>
+                                <div class="terminal-line">• Security tools exposure: Burp Suite, Metasploit (basic usage)</div>
+                                <div class="terminal-line">• CTF problem-solving approach</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">🌐 Networking & Protocols</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@skills:~$</span> cat networking_knowledge.log
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line">• Basic protocol understanding (UDP/TCP)</div>
+                                <div class="terminal-line">• Network packet analysis basics</div>
+                                <div class="terminal-line">• P2P networking concepts (through experimentation)</div>
+                                <div class="terminal-line">• Custom protocol development (learning approach)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">🤖 AI & Computer Vision</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@skills:~$</span> ./ai_projects.sh --list
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line">• OpenCV basics (image processing)</div>
+                                <div class="terminal-line">• YOLO model integration (hands-on learning)</div>
+                                <div class="terminal-line">• Raspberry Pi 5 + Hailo-8 setup</div>
+                                <div class="terminal-line">• Text-to-Speech integration basics</div>
+                                <div class="terminal-line">• Edge AI acceleration (learning through practice)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="certifications">
-            <h2>Certifications</h2>
-            <ul>
-                <li>TryHackMe Pathways: Pre-Security, Cybersecurity 101, Web Fundamentals</li>
-                <li>Coursera: Google IT Support Certification</li>
-            </ul>
+        <!-- Updated Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="prompt">anjai@portfolio:~$</span> cat projects.log
+                    </h2>
+                </div>
+                <div class="projects-grid">
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">🚀 AFTP (Advanced File Transfer Protocol)</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@projects:~$</span> git status AFTP/
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line"><span class="comment"># Featured Project - Latest</span></div>
+                                <div class="terminal-line">Tech Stack: <span class="tech-highlight">C • UDP Sockets • Protocol Design</span></div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line">Custom UDP-based file transfer system built through experimental coding and hands-on learning. Features packet handling, chunked transfers, and basic reliability mechanisms. Developed through vibe coding approach, learning C programming and networking concepts while building.</div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line">Repository: <a href="https://github.com/Anjai7/AFTP" target="_blank" class="project-link">github.com/Anjai7/AFTP</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">🔐 Anonymous P2P Chat</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@projects:~$</span> npm run dev p2p-chat/
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line">Tech Stack: <span class="tech-highlight">WebRTC • Basic Web Technologies</span></div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line">Peer-to-peer chat application with file sharing capabilities, built through experimental web development and learning-by-doing approach. Created through hands-on experimentation with WebRTC and web technologies, focusing on understanding P2P communication concepts.</div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line">Repository: <a href="https://github.com/Anjai7/Anonymous_p2p_chaT" target="_blank" class="project-link">github.com/Anjai7/Anonymous_p2p_chaT</a></div>
+                                <div class="terminal-line">Live Demo: <a href="https://anonymous-p2p-cha-t.vercel.app" target="_blank" class="project-link">anonymous-p2p-cha-t.vercel.app</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">👁️ Blind Assistant System</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@projects:~$</span> python3 blind_assistant.py --role=intern
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line"><span class="comment"># AI Engineer Intern (Computer Vision)</span></div>
+                                <div class="terminal-line">Tech Stack: <span class="tech-highlight">Python • OpenCV • YOLO • Raspberry Pi 5 • Hailo-8 • TTS</span></div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line">AI-powered assistive system for visually impaired users, developed during AI engineering internship with guidance and learning focus. Built while learning computer vision concepts, object detection implementation, and edge computing with mentor guidance.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">💼 Employee Dashboard</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@projects:~$</span> ./deploy.sh employee-dashboard
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line">Tech Stack: <span class="tech-highlight">Basic Web Technologies • Database Integration</span></div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line">Simple employee management interface built through experimental coding and learning modern web application concepts. Developed through hands-on exploration of web application development and database connections.</div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line">Repository: <a href="https://github.com/Anjai7/Employee_Dashboard" target="_blank" class="project-link">github.com/Anjai7/Employee_Dashboard</a></div>
+                                <div class="terminal-line">Live Demo: <a href="https://employee-dashboard-lyart.vercel.app" target="_blank" class="project-link">employee-dashboard-lyart.vercel.app</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">📝 TryHackMe CTF Write-ups</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@projects:~$</span> find ./ctf-writeups/ -name "*.md" | head -5
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line">Tech Stack: <span class="tech-highlight">Linux • Bash • Security Tools</span></div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line">Documented solutions and learning notes for cybersecurity challenges, showcasing problem-solving approach and learning progress. Write-ups for rooms like RootMe, SimpleCTF, and Bricks Heist, documenting learning journey and methodologies discovered.</div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line">View Write-ups: <a href="https://github.com/Anjai7?tab=repositories" target="_blank" class="project-link">github.com/Anjai7</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="leadership">
-            <h2>Leadership & Community</h2>
-            <ul>
-                <li><strong>Captain (Bash Team), Byte Bash Blitz</strong> – A student-led tech community with 50+ active members.</li>
-                <li>Mentored peers in cybersecurity and programming.</li>
-                <li>Organized events and activities to promote technical learning.</li>
-            </ul>
+        <!-- Updated TryHackMe Achievements -->
+        <section id="achievements" class="section achievements-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="prompt">anjai@portfolio:~$</span> ./fetch_thm_stats.py
+                    </h2>
+                </div>
+                <div class="achievements-container">
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">🎯 TryHackMe Learning Progress</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@tryhackme:~$</span> whoami --stats
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line">Handle: <span class="highlight">AnjaiS | [0x9][MAGE]</span></div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line"><span class="comment"># Performance Statistics</span></div>
+                                <div class="terminal-line">Global Rank: <span class="highlight">Top 4%</span></div>
+                                <div class="terminal-line">Total Points: <span class="stat-value counter" data-target="62422">62,422</span> <span class="stat-trend">↗️ +9 recent</span></div>
+                                <div class="terminal-line">Badges Earned: <span class="stat-value counter" data-target="21">21</span> 🏆🎯🔐🌐💻</div>
+                                <div class="terminal-line">Current Streak: <span class="stat-value counter" data-target="52">52</span> days 🔥🔥🔥</div>
+                                <div class="terminal-line">Completed Rooms: <span class="stat-value counter" data-target="103">103</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">🎖️ Learning Achievements</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@tryhackme:~$</span> cat learning_progress.log
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line">• Completed rooms covering Linux fundamentals</div>
+                                <div class="terminal-line">• Gained exposure to web application security</div>
+                                <div class="terminal-line">• Practiced network reconnaissance techniques</div>
+                                <div class="terminal-line">• Learned OWASP Top 10 concepts</div>
+                                <div class="terminal-line">• Hands-on practice with privilege escalation</div>
+                                <div class="terminal-line">• Explored social engineering concepts</div>
+                                <div class="terminal-line">• Introduced to cryptography principles</div>
+                                <div class="terminal-line">• Basic Windows security exploration</div>
+                                <div class="terminal-line">• Practiced packet analysis techniques</div>
+                                <div class="terminal-line">• Experimented with various security tools</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">📚 Completed Learning Pathways</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">anjai@tryhackme:~$</span> ls -la pathways/completed/
+                            </div>
+                            <div class="terminal-output">
+                                <div class="terminal-line">✅ Pre-Security</div>
+                                <div class="terminal-line">✅ Cybersecurity 101</div>
+                                <div class="terminal-line">✅ Web Fundamentals</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>You can reach me through the following channels:</p>
-            <ul>
-                <li>Email: <a href="mailto:anjai0600@gmail.com">anjai0600@gmail.com</a></li>
-                <li>GitHub: <a href="https://github.com/Anjai7" target="_blank" rel="noopener noreferrer">Anjai7</a></li>
-                <li>LinkedIn: <a href="https://linkedin.com/in/anjai-s" target="_blank" rel="noopener noreferrer">Anjai S</a></li>
-                <li>TryHackMe: <a href="https://tryhackme.com/p/AnjaiS" target="_blank" rel="noopener noreferrer">AnjaiS</a></li>
-            </ul>
+        <!-- Certifications (tabbed) -->
+        <section id="certifications" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="prompt">anjai@portfolio:~$</span> cat certifications.sh
+                    </h2>
+                </div>
+
+                <!-- Terminal Window with Tabs and Content -->
+                <div class="terminal-window holographic">
+                    <div class="terminal-header">
+                        <div class="terminal-controls">
+                            <span class="control red"></span>
+                            <span class="control yellow"></span>
+                            <span class="control green"></span>
+                        </div>
+                        <div class="terminal-title">certifications_manager.sh</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">anjai@portfolio:~$</span> <span id="cert-command">ls /certifications/cybersecurity/</span>
+                        </div>
+                        
+                        <!-- Tabs -->
+                        <div class="cert-tabs" role="tablist">
+                            <button class="cert-tab active" data-category="cybersecurity" data-command="ls /certifications/cybersecurity/">🛡️ Cybersecurity</button>
+                            <button class="cert-tab" data-category="it-support" data-command="ls /certifications/it-support/">🖥️ IT Support</button>
+                            <button class="cert-tab" data-category="cloud-devops" data-command="ls /certifications/cloud-devops/">☁️ Cloud & DevOps</button>
+                            <button class="cert-tab" data-category="software-dev" data-command="ls /certifications/software-dev/">💻 Software Dev</button>
+                            <button class="cert-tab" data-category="planned" data-command="ls /certifications/planned/">🎯 Planned</button>
+                        </div>
+
+                        <!-- Tab contents -->
+                        <div class="terminal-output">
+                            <div class="cert-content active" data-category="cybersecurity">
+                                <div class="terminal-line"><span class="comment"># 🛡️ Cybersecurity Certifications</span></div>
+                                <div class="terminal-line">• TryHackMe – Cyber Security 101 (Aug 2025 · Exp. Aug 2028)</div>
+                                <div class="terminal-line">• TryHackMe – Web Fundamentals (Aug 2025 · Exp. Aug 2028)</div>
+                                <div class="terminal-line">• TryHackMe – Pre Security (Jul 2025 · Exp. Aug 2028)</div>
+                                <div class="terminal-line">• LinkedIn Learning – Penetration Testing Essential Training (2021) (Sep 2024)</div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line"><span class="comment"># Skills: Cybersecurity Fundamentals, Web Security, Penetration Testing, Threat Analysis</span></div>
+                            </div>
+
+                            <div class="cert-content" data-category="it-support">
+                                <div class="terminal-line"><span class="comment"># 🖥️ IT Support & System Administration</span></div>
+                                <div class="terminal-line">• Google – Google IT Support (Apr 2025)</div>
+                                <div class="terminal-line">• Google – Google IT Support Professional Certificate (v2) (Apr 2025)</div>
+                                <div class="terminal-line">• Google – System Administration and IT Infrastructure Services (Apr 2025)</div>
+                                <div class="terminal-line">• Google – Technical Support Fundamentals (Feb 2025)</div>
+                                <div class="terminal-line">• Google – Operating Systems and You: Becoming a Power User (Mar 2025)</div>
+                                <div class="terminal-line">• Google – The Bits and Bytes of Computer Networking (Mar 2025)</div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line"><span class="comment"># Skills: IT Support, System Administration, Networking, Operating Systems</span></div>
+                            </div>
+
+                            <div class="cert-content" data-category="cloud-devops">
+                                <div class="terminal-line"><span class="comment"># ☁️ Cloud & DevOps</span></div>
+                                <div class="terminal-line">• AWS Academy Graduate – AWS Academy Cloud Foundations (Aug 2024)</div>
+                                <div class="terminal-line">• Docker Foundations Professional Certificate (Sep 2024)</div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line"><span class="comment"># Skills: Cloud Computing, AWS, Containerization, Docker</span></div>
+                            </div>
+
+                            <div class="cert-content" data-category="software-dev">
+                                <div class="terminal-line"><span class="comment"># 💻 Software Development & Programming</span></div>
+                                <div class="terminal-line">• Microsoft – Career Essentials in Software Development (Dec 2024)</div>
+                                <div class="terminal-line">• LinkedIn Learning – Introduction to Career Skills in Software Development (Dec 2024)</div>
+                                <div class="terminal-line">• LinkedIn Learning – Programming Foundations: Fundamentals (Dec 2024)</div>
+                                <div class="terminal-line">• LinkedIn Learning – Programming Foundations: Beyond the Fundamentals (Dec 2024)</div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line"><span class="comment"># Skills: Programming, Software Development, Career Skills</span></div>
+                            </div>
+
+                            <div class="cert-content" data-category="planned">
+                                <div class="terminal-line"><span class="comment"># 🎯 Planned Certifications</span></div>
+                                <div class="terminal-line">• 🔐 eJPT (eLearnSecurity Junior Penetration Tester) — Planned: entry-level practical penetration testing certification</div>
+                                <div class="terminal-line">• 🛡️ CEH (Certified Ethical Hacker) — Planned: broader ethical hacking curriculum</div>
+                                <div class="terminal-line"></div>
+                                <div class="terminal-line"><span class="comment"># Goals: Advance penetration testing skills and ethical hacking knowledge</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </section>
-    </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const introAnimationEl = document.getElementById('intro-animation');
-            const introContainerEl = document.getElementById('intro-container');
-            const portfolioContentEl = document.getElementById('portfolio-content');
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="prompt">anjai@portfolio:~$</span> cat contact.sh
+                    </h2>
+                </div>
+                <div class="contact-terminal">
+                    <div class="terminal-window holographic">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="terminal-title">contact_anjai.sh</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">#!/bin/bash</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="comment"># Connect with Anjai S - Cybersecurity Enthusiast</span>
+                            </div>
+                            <div class="contact-links">
+                                <div class="contact-item">
+                                    <span class="contact-var">EMAIL=</span>
+                                    <a href="mailto:anjai0600@gmail.com" class="contact-link glitch-hover">anjai0600@gmail.com</a>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-var">GITHUB=</span>
+                                    <a href="https://github.com/Anjai7" target="_blank" class="contact-link glitch-hover">github.com/Anjai7</a>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-var">LINKEDIN=</span>
+                                    <a href="https://linkedin.com/in/anjai-s" target="_blank" class="contact-link glitch-hover">linkedin.com/in/anjai-s</a>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-var">TRYHACKME=</span>
+                                    <a href="https://tryhackme.com/p/AnjaiS" target="_blank" class="contact-link glitch-hover">tryhackme.com/p/AnjaiS</a>
+                                </div>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="comment"># Status: Available for cybersecurity learning opportunities</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            const name = "ANJAI";
-            // Using Unicode symbols and characters to represent logos
-            const logos = ["Λ", "[N]", "JtR", "Λ", "I"];
-            const glitchChars = 'ABCDEFGHIJKLMOPQRSTUVWXYZ1234567890!@#$%^&*()_-+={}[]|:;"<>,.?/~`';
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="terminal-line">
+                        <span class="prompt">anjai@portfolio:~$</span> echo "Thanks for visiting my learning journey!"
+                    </div>
+                    <div class="terminal-output">
+                        <p>© 2025 Anjai S | Crafted with 💚 and passion for learning</p>
+                        <p class="footer-note">Secure • Learning • Growing</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
-            let currentText = [...logos];
-            introAnimationEl.textContent = currentText.join(' ');
-
-            const revealLetter = (index) => {
-                if (index >= name.length) {
-                    addCursorAndFadeOut();
-                    return;
-                }
-
-                const targetLetter = name[index];
-                let glitchCount = 0;
-                const maxGlitches = 10; // Number of "glitches"
-                const glitchDuration = 50; // ms per glitch
-
-                const glitchInterval = setInterval(() => {
-                    if (glitchCount >= maxGlitches) {
-                        clearInterval(glitchInterval);
-                        currentText[index] = targetLetter;
-                        introAnimationEl.textContent = currentText.join(' ');
-                        setTimeout(() => revealLetter(index + 1), 200);
-                    } else {
-                        const randomChar = glitchChars[Math.floor(Math.random() * glitchChars.length)];
-                        currentText[index] = randomChar;
-                        introAnimationEl.textContent = currentText.join(' ');
-                        glitchCount++;
-                    }
-                }, glitchDuration);
-            };
-
-            const addCursorAndFadeOut = () => {
-                // Remove space and add cursor
-                introAnimationEl.textContent = name;
-                introAnimationEl.innerHTML += '<span class="blinking-cursor">|</span>';
-
-                setTimeout(() => {
-                    introContainerEl.style.transition = 'opacity 1s ease-out';
-                    introContainerEl.style.opacity = '0';
-
-                    introContainerEl.addEventListener('transitionend', () => {
-                        introContainerEl.style.display = 'none';
-                        portfolioContentEl.style.display = 'block';
-
-                        // Force a reflow before adding the class to trigger the animation
-                        void portfolioContentEl.offsetWidth;
-
-                        portfolioContentEl.style.transition = 'opacity 1s ease-in';
-                        portfolioContentEl.style.opacity = '1';
-
-                    }, { once: true });
-
-                }, 1500); // Wait 1.5 seconds with cursor before fading
-            };
-
-            // Start the animation after an initial pause
-            setTimeout(() => {
-                revealLetter(0);
-            }, 1000);
-        });
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
